@@ -1,0 +1,24 @@
+{% include 'header.html' %}
+
+<p>
+  {% for k in key %}
+    {{k.keyid}} {{k.length}}
+    {% if k.algo == '1' %}
+      RSA
+    {% elif k.algo == '16' %}
+      Elgamal
+    {% elif k.algo == '17' %}
+      DSA
+    {% elif k.algo == '20' %}
+      Elgamal(sign/encrypt)
+    {% else %}
+      {{ k.algo }}
+    {% endif %}
+  {% endfor %}
+<br>
+{% for uid in userids %}
+  {{ uid.userid }}<br>
+{% endfor %}
+</p>
+
+{% include 'footer.html' %}

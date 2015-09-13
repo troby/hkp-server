@@ -1,0 +1,25 @@
+HKP Compatible Keyserver 
+Based upon IETF Memo by D. Shaw, drafted March 2003
+
+Please review the /about page for examples.
+
+Installation:
+cd hkp-server
+mkdir key_store
+cp /some/path/my/pubring.gpg key_store/
+Modify hkpconfig.cfg to change host and port listener.
+
+A database file (flaskr.db) will be created each time
+the server is started, if it does not already exist.
+On startup, this database will be initialized from the
+public keyring in key_store/. It should be treated as
+a temporary database. It is important to backup the
+public keyring located at key_store/pubring.gpg.
+
+Version 0.0.9 is under development, but can return a
+basic key search result using the corresponding keyid.
+All other methods required for compliance with the HKP
+standard should return '501 Not Implemented'.
+
+test_server.sh should not be used without modification.
+It exists only for testing during development.
