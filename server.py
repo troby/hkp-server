@@ -78,7 +78,7 @@ def lookup():
 
 # lookup operations
 def lookup_get(search):
-  key = query_db('SELECT type,length,algo,keyid,cdate,expire from keys where keyid = ?', (search,))
+  key = query_db('SELECT type,length,algo,keyid,cdate,expire FROM keys WHERE keyid = ?', (search,))
   if len(key) < 1:
     return return_error(404, 'Key not found')
   userids = get_userids(search)
