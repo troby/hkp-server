@@ -78,7 +78,7 @@ def lookup():
 
 # lookup operations
 def lookup_get(search):
-  key = query_db('select type,length,algo,keyid,cdate,expire from keys where keyid = ?', (search,))
+  key = query_db('SELECT type,length,algo,keyid,cdate,expire from keys where keyid = ?', (search,))
   if len(key) < 1:
     return return_error(404, 'Key not found')
   userids = get_userids(search)
@@ -141,7 +141,7 @@ def slurp_keys(cur):
   raw_keys = gpg.list_keys()
   for k in raw_keys:
     cur.execute(
-      'INSERT INTO keys (type,length,algo,keyid,cdate,expire) values (?,?,?,?,?,?)',
+      'INSERT INTO keys (type,length,algo,keyid,cdate,expire) VALUES (?,?,?,?,?,?)',
       (k['type'],k['length'],k['algo'],k['keyid'],k['date'],k['expires'])
     )
     for uid in k['uids']:
@@ -150,17 +150,11 @@ def slurp_keys(cur):
 # build userid list
 def get_userids(keyid):
   cur = g.db.cursor()
-  cur.execute('select userid from userids where keyid = ?', (keyid,))
+  cur.execute('SELECT userid FROM userids WHERE keyid = ?', (keyid,))
   uids = []
   for row in cur.fetchall():
     uids.append(row)
   return uids
-
-@app.route('/db')
-def db_index():
-  keys = query_db('select type,length,algo,keyid,cdate,expire from keys')
-  userids = query_db('select keyid,userid from userids')
-  return render_template('keys.html', keys=keys, userids=userids)
 
 @app.before_request
 def before_request():
