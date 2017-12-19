@@ -7,7 +7,7 @@ Installation:
 cd hkp-server
 mkdir key_store
 cp /some/path/my/pubring.gpg key_store/
-Modify hkpconfig.cfg to change host and port listener.
+Modify hkpconfig.cfg accordingly.
 
 A database file (flaskr.db) will be created each time
 the server is started, if it does not already exist.

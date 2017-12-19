@@ -137,7 +137,7 @@ def query_db(query, args=(), one=False):
   return rows
 
 def slurp_keys(cur):
-  gpg = gnupg.GPG(gnupghome='key_store')
+  gpg = gnupg.GPG(gnupghome=app.config['HKP_STORE'])
   raw_keys = gpg.list_keys()
   for k in raw_keys:
     cur.execute(
